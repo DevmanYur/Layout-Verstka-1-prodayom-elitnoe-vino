@@ -2,6 +2,8 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+import pandas
+
 import datetime
 
 env = Environment(
@@ -11,6 +13,10 @@ env = Environment(
 
 template = env.get_template('template.html')
 
+
+excel_data_df = pandas.read_excel('wine.xlsx', sheet_name='Лист1')
+wines_excel = excel_data_df.to_dict(orient='records')
+print(wines_excel)
 
 def get_delta_year():
     date_foundation = datetime.datetime(year=1920,month=1, day=1)
@@ -35,6 +41,7 @@ def get_ending_year(year):
 
 
 rendered_page = template.render(
+    wines = wines_excel,
     delta_year = get_delta_year(),
     ending_year = get_ending_year(get_delta_year())
 )
