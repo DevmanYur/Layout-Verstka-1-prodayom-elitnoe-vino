@@ -20,6 +20,7 @@ def get_delta_year():
     years = seconds / 60 / 60 / 24 / 365
     return int(years)
 
+
 def get_ending_year(year):
     remains_100 = year%100
     remains_10 = remains_100%10
@@ -31,6 +32,7 @@ def get_ending_year(year):
         return "года"
     else:
         return "лет"
+
 
 rendered_page = template.render(
     delta_year = get_delta_year(),
