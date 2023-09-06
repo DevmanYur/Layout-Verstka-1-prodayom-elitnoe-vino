@@ -20,9 +20,21 @@ def get_delta_year():
     years = seconds / 60 / 60 / 24 / 365
     return int(years)
 
+def get_ending_year(year):
+    remains_100 = year%100
+    remains_10 = remains_100%10
+    if ((remains_100 == 11) or (remains_100 == 12) or (remains_100 == 13) or (remains_100 == 14)):
+        return "лет"
+    elif (remains_10 == 1):
+        return "год"
+    elif ((remains_10 == 2) or (remains_10 == 3) or (remains_10 == 4)):
+        return "года"
+    else:
+        return "лет"
 
 rendered_page = template.render(
-    delta_year = get_delta_year()
+    delta_year = get_delta_year(),
+    ending_year = get_ending_year(get_delta_year())
 )
 
 with open('index.html', 'w', encoding="utf8") as file:
