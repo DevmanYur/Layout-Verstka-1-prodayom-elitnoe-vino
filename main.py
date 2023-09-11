@@ -16,7 +16,7 @@ env = Environment(
 template = env.get_template('template.html')
 
 
-file_pandas = pandas.read_excel(io = 'wine2.xlsx', 
+file_pandas = pandas.read_excel(io = 'wine3.xlsx', 
                                 sheet_name='Лист1',
                                 na_values='znachenie_nan',
                                 keep_default_na=False
