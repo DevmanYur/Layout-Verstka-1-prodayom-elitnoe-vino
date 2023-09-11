@@ -3,9 +3,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
-from pprint import pprint
 import collections
-
 import datetime
 
 env = Environment(
@@ -21,14 +19,14 @@ file_pandas = pandas.read_excel(io = 'wine3.xlsx',
                                 na_values='znachenie_nan',
                                 keep_default_na=False
                                )
-list_wine = file_pandas.to_dict(orient='records')
+
+list_all_products = file_pandas.to_dict(orient='records')
 
 
-dict_with_wine = collections.defaultdict(list)
-for dict in list_wine:
-  dict_with_wine[dict["Категория"]].append(dict)
+dict_with_products = collections.defaultdict(list)
+for dict in list_all_products:
+    dict_with_products[dict["Категория"]].append(dict)
 
-pprint(dict_with_wine)
 
 def get_delta_year():
     date_foundation = datetime.datetime(year=1920,month=1, day=1)
@@ -53,13 +51,15 @@ def get_ending_year(year):
 
 
 rendered_page = template.render(
-    dict_with_wine = dict_with_wine,
+    dict_with_products = dict_with_products,
     delta_year = get_delta_year(),
     ending_year = get_ending_year(get_delta_year())
 )
 
+
 with open('index.html', 'w', encoding="utf8") as file:
     file.write(rendered_page)
+
 
 server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
 server.serve_forever()
