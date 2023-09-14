@@ -1,3 +1,15 @@
 env/
 .vscode/
 
+/venv
+/__pycache__
+.replit
+replit.nix
+/.replit
+/*replit
+/**/*.cpython-311.pyc
+/.idea
+/**/*.env
+/.vscode
+/.DS_Store
+
